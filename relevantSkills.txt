@@ -1,0 +1,25 @@
+relevantSkills
+
+Drone Interfacing
+Drones
+Mining Drone Operation
+Mining Drone Specialization
+
+Mining Director
+Mining Foreman
+
+CPU Management
+Power Grid Management
+
+Industry
+Refining
+Mining
+Mining Upgrades
+Astrogeology
+Veldspar Processing
+
+Science
+
+Exhumers
+Mining Barge
+Mining Frigate

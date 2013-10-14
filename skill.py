@@ -7,13 +7,13 @@ class Skill:
     4: 45255,
     5: 256000
   }
-  def __init__(self, name, effects, primary, secondary, rank, prereqs):
-    self.name = name
+  def __init__(self, id, effects, primary, secondary, rank, prereqs):
+    self.id = id
     self.effects = effects
     self.rank = rank
     self.primary = primary
     self.secondary = secondary
-    self.prereqs = prereqs # ["skillname", levelRequired] tuples
+    self.prereqs = prereqs # {int skill_id: int level_required} map
 
   def calcSps(self, level):
     return self.rank * Skill.levelToPoint[level]
@@ -22,6 +22,7 @@ class Skill:
     return self.calcSps(targetLevel) - self.calcSps(targetLevel-1)
 
   def canTrain(self, character):
-    canTrain = true
-    for (preReqSkill, preReqLevel) in self.prereqs:
-      if
+    for (prereq_id, prereq_level) in self.prereqs.iteritems():
+      if prereq_id not in character.skills or character.skills[prereq_id] < prereq_level:
+        return False
+    return True

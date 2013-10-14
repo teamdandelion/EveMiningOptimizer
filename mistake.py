@@ -16,29 +16,39 @@ class skill:
         self.mySecondary = secondary
         self.baseSkillCost = {1:250, 2:1165, 3:6585, 4:37255, 5:210745}
 
-    # trainTime takes in a dictionary of attribute scores matched to skill name
-    # keys and returns time to train the skill to the next rank in minutes
     def trainTime (self, attributes):
         skillPointTarget = self.baseSkillCost[self.myLevel + 1] * self.myRank
         skillPerMinute = attributes[self.myPrimary] + (attributes[self.mySecondary] / 2)
         return (skillPointTarget / skillPerMinute)
 
     def canTrain (self, state_index):
-        for skill in prereqs.keys():
-            if skill in state_index and state_index[skill] >= prereqs[skill]:
-                return true
-            else:
-                return false
+        passes = 1
+
+        if self.myLevel >= 5:
+            passes = 0
+        
+        for skill in self.myPrereqs.keys():
+            if not skill in state_index:
+                passes = 0
+            if skill in state_index:
+                if state_index[skill].myLevel < self.myPrereqs[skill]:
+                    passes = 0
+                    
+        return passes
 
 def test():
 
-    # sample set of attributes
     attributes = {'int':22, 'mem':22, 'cha':20, 'wil':22, 'per':22}
 
-    # create the mining skill with accurate parameters, set current level to 3
-    mining = skill(3386, 1, {}, 3, 'mem', 'per')
-    print(mining.trainTime(attributes))
+    science = skill(3402, 1, {}, 5, 'int', 'mem')
+    mining = skill(3386, 1, {}, 5, 'mem', 'per')
+    astrogeology = skill(3410, 3, {3402:4, 3386:4}, 0, 'int', 'mem')
 
-    # ^^ tests match game data ^^
+    skill_index = {3402:science, 3386:mining}
+    
+    if astrogeology.canTrain(skill_index):
+        print('rad')
+    else:
+        print('bummer')
 
-# test()
+test()

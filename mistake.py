@@ -36,13 +36,16 @@ class skill:
                     
         return passes
 
+    def skill_up (self):
+        self.myLevel += 1
+
 def test():
 
     attributes = {'int':22, 'mem':22, 'cha':20, 'wil':22, 'per':22}
 
     science = skill(3402, 1, {}, 5, 'int', 'mem')
     mining = skill(3386, 1, {}, 5, 'mem', 'per')
-    astrogeology = skill(3410, 3, {3402:4, 3386:4}, 0, 'int', 'mem')
+    astrogeology = skill(3410, 3, {3402:4, 3386:4}, 4, 'int', 'mem')
 
     skill_index = {3402:science, 3386:mining}
     
